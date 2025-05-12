@@ -1,0 +1,19 @@
+services:
+  demo-service:
+    container_name: demo-service
+    image: demo-service:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}  # This points to your host machine
+      - DATABASE_PORT=5432
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - REDIS_HOST=host.docker.internal
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=
+    volumes:
+      - ./src:/app
+    network_mode: host

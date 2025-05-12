@@ -1,0 +1,18 @@
+FROM node:21-alpine
+
+WORKDIR /app
+
+RUN npm install -g pnpm
+
+COPY . .
+
+RUN pnpm install
+
+RUN pnpm run build
+
+# we can remove src directory to free docker file system
+RUN rm -rf ./src
+
+EXPOSE ${PORT}
+
+CMD [ "pnpm", "run", "start:prod" ]
