@@ -17,7 +17,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node --files -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource ./src/database/datasource/datasource.ts",
+    "migrate": "pnpm run typeorm migration:run",
+    "make:migration": "npx typeorm migration:create ./src/database/migrations/$NAME",
+    "migration:generate": "pnpm run typeorm migration:generate  ./src/database/migrations/migrations/$NAME",
+    "migration:rollback": "pnpm run typeorm migration:revert",
+    "db:seed": "ts-node --files -r tsconfig-paths/register ./scripts/seed.ts  ./src/database/scripts/main.seeder.ts",
+    "docker": "docker run -d --name mysql-container -e MYSQL_ROOT_USER=root -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^3.0.0",
